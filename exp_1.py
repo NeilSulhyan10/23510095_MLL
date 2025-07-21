@@ -20,38 +20,36 @@ def exp1(k=100, N=100):
 
         change_counts.append(change_count)
 
-    # Plot histogram after collecting all counts
-    # plt.hist(change_counts, bins='auto', alpha=0.7, color='skyblue', edgecolor='black')
-    # plt.title(f'Histogram of change_counts for N={N}')
-    # plt.xlabel('change_counts')
-    # plt.ylabel('Frequency')
-    # plt.grid(True)
-    # plt.show()
-
-    # Calculate statistics
     mean_count = mean(change_counts)
     median_count = median(change_counts)
     geo_mean_count = gmean(change_counts)
 
     print(f'N = {N}')
-    print(f'Mean: {mean_count:.2f}')
-    print(f'Median: {median_count:.2f}')
-    print(f'Geometric Mean: {geo_mean_count:.2f}')
+    print(f'Mean: {mean_count:.4f}')
+    print(f'Median: {median_count:.4f}')
+    print(f'Geometric Mean: {geo_mean_count:.4f}')
     print('---------------------------------------')
+
+    plt.hist(change_counts, bins='auto', alpha=0.7, color='skyblue', edgecolor='black')
+    plt.axvline(mean_count, color='red', linestyle='dashed', linewidth=1)
+    plt.axvline(median_count, color='white', linestyle='dashed', linewidth=1)
+    plt.title(f'Histogram of change_counts for N={N}')
+    plt.xlabel('change_counts')
+    plt.ylabel('Frequency')
+    plt.grid(True)
+    plt.show()  
 
     return mean_count
 
-# List of N values
 N_values = [10, 20, 50, 100, 500, 1000, 5000, 10000, 50000, 100000, 500000, 1000000]
+# N_values = [10]
 
 mean_counts = []
 
-# Run analysis for each N
 for N in N_values:
     mean_val = exp1(k=100, N=N)
     mean_counts.append(mean_val)
 
-# Plot N vs mean_var_change_count
 plt.figure(figsize=(12, 6))
 plt.plot(N_values, mean_counts, marker='o', linestyle='-')
 plt.xscale('log')
